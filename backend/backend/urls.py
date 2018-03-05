@@ -1,9 +1,12 @@
 from django.conf.urls import url, include
-from rest_framework import routers
-from backend.api import views
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+
+from rest_framework import routers
+
+from backend.api import views
+
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)

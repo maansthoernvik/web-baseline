@@ -122,7 +122,18 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAdminUser'
+        'rest_framework.permissions.IsAdminUser',
+    ],
+
+    # To use pagination query the API in the following way:
+    #
+    # localhost/api/data?limit=10%offset=1
+    #
+    # Limit can be omitted if PAGE_SIZE is defined in the REST_FRAMEWORK settings, it is the same. Offset is simply
+    # the offset among the results returned by the request. limit=1 will show the first item.
+    # limit=1%offset=1 will show the second and so on.
+    'DEFAULT_PAGINATION_CLASS': [
+        'rest_framework.pagination.LimitOffsetPagination',
     ],
     'PAGE_SIZE': 10
 }

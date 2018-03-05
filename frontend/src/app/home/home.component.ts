@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.http.get(
       'http://localhost:8000/api/info/',
-      { headers: new HttpHeaders().set('Authorization', 'Basic ' + btoa('admin:Horseseathay1')) }
+      { headers: new HttpHeaders().set('Authorization', 'Basic ' + btoa('admin:password123')) }
     ).subscribe(
       data => {
         console.log(data);
