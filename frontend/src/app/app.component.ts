@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RequestService } from './api-interface/request.service';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   title = 'Longest web app title in the fucking universe';
 
-  constructor() {}
+  constructor(private request: RequestService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit() {}
 }

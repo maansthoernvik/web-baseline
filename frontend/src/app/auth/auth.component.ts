@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {BaseResultSetInterface} from "../api-interface/base-result-set.interface";
+import {NgForm} from '@angular/forms';
+import {AuthService} from './auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -8,39 +8,28 @@ import {BaseResultSetInterface} from "../api-interface/base-result-set.interface
   styleUrls: ['./auth.component.css']
 })
 export class AuthComponent implements OnInit {
-  users: any;
-  groups: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private auth: AuthService) { }
 
-  ngOnInit() {
-    const headers = new HttpHeaders().set('Authorization', 'Basic ' + btoa('admin:password123'));
-    // btoa() needs to be used since the Authorization header uses base64 encoding!
-    // Without it, the request will fail with error code 401, unauthorized since it
-    // cannot decode the request header.
-    this.http.get<BaseResultSetInterface>(
-      'http://localhost:8000/api/users/',
-      { headers: headers }
-    ).subscribe(
-      data => {
-        console.log(data);
-        this.users = data.results;
+  ngOnInit() {}
+
+  onSubmit(form: NgForm) {
+    const username = form.value.username;
+    console.log(username);
+    const password = form.value.password;
+    console.log(password);
+    this.auth.login(username, password).subscribe(
+      success => {
+        console.log('Success logging in.');
+        console.log(success);
       },
-      err => {
-        console.log(err);
-      });
-
-    this.http.get<BaseResultSetInterface>(
-      'http://localhost:8000/api/groups/',
-      { headers: headers }
-    ).subscribe(
-      data => {
-        console.log(data);
-        this.groups = data.results;
+      error => {
+        console.log('Error logging in.');
+        console.log(error);
       },
-      err => {
-        console.log(err);
-      });
+      () => {
+        console.log('Completed');
+      }
+    );
   }
-
 }

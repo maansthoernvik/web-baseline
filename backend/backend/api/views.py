@@ -1,6 +1,10 @@
 from django.contrib.auth.models import User, Group
+from django.contrib.auth import authenticate, login
+from django.http import HttpResponse
 
-from rest_framework import viewsets
+from json import loads
+
+from rest_framework import viewsets, status
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.permissions import IsAuthenticated
 
@@ -34,3 +38,21 @@ class InfoViewSet(viewsets.ModelViewSet):
     serializer_class = InfoSerializer
     pagination_class = LimitOffsetPagination
     permission_classes = (IsAuthenticated, )
+
+
+def login_user(request):
+    request_body = request.body.decode('utf-8')
+    dict_request_body = loads(request_body)
+    username = dict_request_body['username']
+    password = dict_request_body['password']
+
+    user = authenticate(username=username, password=password)
+
+    if not None:
+        login(request, user)
+        return HttpResponse(status=status.HTTP_200_OK)
+    else:
+        response = HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
+        response['WWW-Authenticate'] = 'Invalid username or password'
+        return response
+

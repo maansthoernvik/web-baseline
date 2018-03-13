@@ -13,7 +13,7 @@ SECRET_KEY = '$7&9-c0=r=*1=!bew*^1rfm)$eu-mrx=vn(7al+5)tk!bsks#q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
@@ -27,7 +27,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'backend.api'
+    'backend.api',
+    'backend.webapp'
 ]
 
 MIDDLEWARE = [
@@ -46,7 +47,7 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['static/dist'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -91,6 +92,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# True = sends CSRF token per request, False = cookies
+CSRF_USE_SESSIONS = False
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -114,6 +117,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_DIRS = [
     ('images', os.path.join(STATIC_ROOT, 'images')),
+    ('dist', os.path.join(STATIC_ROOT, 'dist'))
 ]
 
 # REST FRAMEWORK
@@ -143,7 +147,23 @@ REST_FRAMEWORK = {
 # breaks this stupid fucking thing.
 CORS_ORIGIN_WHITELIST = [
     'localhost:4200',
+    'localhost:8000'
 ]
+
+CORS_ALLOW_HEADERS = (
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+    'credentials',
+)
+
+CORS_ALLOW_CREDENTIALS = True
 
 # In case of emergency
 # CORS_ORIGIN_ALLOW_ALL = True

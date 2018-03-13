@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {BaseResultSetInterface} from "../api-interface/base-result-set.interface";
+import { RequestService } from '../api-interface/request.service';
+import { catchError, map, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs/Observable';
+import { pipe } from 'rxjs/Rx';
 
 @Component({
   selector: 'app-home',
@@ -10,19 +12,13 @@ import {BaseResultSetInterface} from "../api-interface/base-result-set.interface
 export class HomeComponent implements OnInit {
   info: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private request: RequestService) { }
 
   ngOnInit() {
-    this.http.get<BaseResultSetInterface>(
-      'http://localhost:8000/api/info/',
-      { headers: new HttpHeaders().set('Authorization', 'Basic ' + btoa('admin:password123')) }
-    ).subscribe(
-      data => {
-        console.log(data);
-        this.info = data.results;
-      },
-      err => {
-        console.log(err);
-      });
+    this.request.get('http://localhost:8000/csrf/')
+      .subscribe(
+        (res) => console.log(res),
+        err => console.log(err)
+      );
   }
 }

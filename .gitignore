@@ -1,8 +1,10 @@
 # Compiled Python
 __pycache__/
-dist/
 tmp/
 out-tsc/
+
+# Built angular app
+dist/
 
 # Collected staticfiles
 backend/static/admin
