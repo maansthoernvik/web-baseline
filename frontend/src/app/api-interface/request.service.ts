@@ -20,13 +20,9 @@ export class RequestService {
         break;
       }
     }
-    console.log('[RequestService] Got token: ' + this.csrfToken);
+    console.log('[RequestService] Got CSRF token: ' + this.csrfToken);
 
-    if (this.csrfToken === '') {
-      return 'empty';
-    } else {
-      return this.csrfToken;
-    }
+    return this.csrfToken;
   }
 
   get(url: string) {
@@ -34,6 +30,7 @@ export class RequestService {
   }
 
   post(url: string, body: {}) {
+    // Add { observe: 'response' } to get mode than just the response body back.
     return this.httpClient.post(url, body);
   }
 

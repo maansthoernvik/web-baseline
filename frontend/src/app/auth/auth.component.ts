@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {AuthService} from './auth.service';
+import {AuthService} from './services/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -15,20 +15,13 @@ export class AuthComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     const username = form.value.username;
-    console.log(username);
     const password = form.value.password;
-    console.log(password);
     this.auth.login(username, password).subscribe(
       success => {
-        console.log('Success logging in.');
-        console.log(success);
+        console.log('[AuthComponent] Success logging in.');
       },
       error => {
-        console.log('Error logging in.');
-        console.log(error);
-      },
-      () => {
-        console.log('Completed');
+        console.log('[AuthComponent] Error logging in.');
       }
     );
   }

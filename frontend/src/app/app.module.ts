@@ -12,15 +12,15 @@ import { AuthComponent } from './auth/auth.component';
 import { HomeComponent } from './home/home.component';
 
 // My services
-import { AuthService } from './auth/auth.service';
+import { AuthService } from './auth/services/auth.service';
 import { RequestService } from './api-interface/request.service';
 
 // My guards
-import { AuthGuardService } from './auth/auth-guard.service';
+import { AuthGuardService } from './auth/guards/auth-guard.service';
 
 // Interceptors
-import { AuthInterceptor } from './auth/auth.interceptor';
-import {AuthResponseInterceptor} from "./auth/auth-response.interceptor";
+import { AuthRequestInterceptor } from './auth/interceptors/auth-request.interceptor';
+import { AuthResponseInterceptor } from "./auth/interceptors/auth-response.interceptor";
 
 
 @NgModule({
@@ -43,7 +43,7 @@ import {AuthResponseInterceptor} from "./auth/auth-response.interceptor";
     RequestService,
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
+      useClass: AuthRequestInterceptor,
       multi: true,
     },
     {

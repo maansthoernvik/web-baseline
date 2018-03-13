@@ -15,10 +15,6 @@ export class HomeComponent implements OnInit {
   constructor(private request: RequestService) { }
 
   ngOnInit() {
-    this.request.get('http://localhost:8000/csrf/')
-      .subscribe(
-        (res) => console.log(res),
-        err => console.log(err)
-      );
+    this.request.get('http://localhost:8000/api/csrf/').subscribe();
   }
 }

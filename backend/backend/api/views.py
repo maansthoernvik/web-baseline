@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 
 from json import loads
 
@@ -40,6 +41,12 @@ class InfoViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated, )
 
 
+@csrf_exempt
+@ensure_csrf_cookie
+def get_csrf_token(request):
+    return HttpResponse(status=status.HTTP_200_OK)
+
+
 def login_user(request):
     request_body = request.body.decode('utf-8')
     dict_request_body = loads(request_body)
@@ -55,4 +62,3 @@ def login_user(request):
         response = HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
         response['WWW-Authenticate'] = 'Invalid username or password'
         return response
-

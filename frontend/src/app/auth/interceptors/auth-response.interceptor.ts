@@ -7,7 +7,7 @@ export class AuthResponseInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).do(
       event => {
-        console.log(event);
+        console.log("[ResponseInterceptor] Incoming response: ", event);
       }
     );
   }
