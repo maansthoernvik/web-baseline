@@ -15,7 +15,6 @@ export class RequestService {
       cookie = cookie.trim();
       const re = new RegExp('^csrftoken');
       if (re.test(cookie)) {
-        //this.csrfToken = cookie;
         this.csrfToken = decodeURIComponent(cookie.substr(10, cookie.length)); // remove csrftoken=
         break;
       }
