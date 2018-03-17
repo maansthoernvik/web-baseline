@@ -29,7 +29,7 @@ class EventConsumer(JsonWebsocketConsumer):
     # has to have a function event_alarm
     # ------------------------------------------------------------------------------------------------------------------
 
-    def event_alarm(self, event):
+    def alarm(self, event):
         self.send_json({
             'type': event['type'],
             'content': event['content']

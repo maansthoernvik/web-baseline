@@ -1,8 +1,9 @@
-import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
-import {AuthComponent} from './auth/auth.component';
-import {HomeComponent} from './home/home.component';
+import { AuthComponent } from './auth/auth.component';
+import { HomeComponent } from './home/home.component';
+import { EventsComponent } from './events/events.component';
 
 /*
 To add child routes of a parent path:
@@ -24,6 +25,7 @@ const appRoutes: Routes = [
   // Need to match full path of an empty path since it will match everything otherwise.
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'auth', component: AuthComponent },
+  { path: 'events', component: EventsComponent },
 ];
 
 @NgModule({
