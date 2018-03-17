@@ -1,0 +1,11 @@
+<div>
+  <ul>
+    <li *ngFor="let alarm of alarms">
+      {{ alarm.type }} {{ alarm.content }}
+    </li>
+  </ul>
+</div>
+<div>
+  <h2>Send a test event</h2>
+  <button (click)="pushEvent()">Send event</button>
+</div>

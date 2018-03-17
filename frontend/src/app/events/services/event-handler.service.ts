@@ -18,6 +18,7 @@ export interface Event {
 
 @Injectable()
 export class EventHandlerService {
+  static readonly TEST_EVENT_URL = 'http://localhost:8000/events/alarm/';
   public events: Subject<Event>;
 
   constructor(eventListener: EventListenerService) {

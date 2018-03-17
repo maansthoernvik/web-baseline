@@ -10,26 +10,28 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
 import { HomeComponent } from './home/home.component';
+import { EventsComponent } from './events/events.component';
 
 // My services
 import { AuthService } from './auth/services/auth.service';
 import { RequestService } from './api-interface/request.service';
-import { EventHandlerService } from "./events/services/event-handler.service";
-import { EventListenerService } from "./events/services/event-listener.service";
+import { EventHandlerService } from './events/services/event-handler.service';
+import { EventListenerService } from './events/services/event-listener.service';
 
 // My guards
 import { AuthGuardService } from './auth/guards/auth-guard.service';
 
 // Interceptors
 import { AuthRequestInterceptor } from './auth/interceptors/auth-request.interceptor';
-import { AuthResponseInterceptor } from "./auth/interceptors/auth-response.interceptor";
+import { AuthResponseInterceptor } from './auth/interceptors/auth-response.interceptor';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthComponent,
-    HomeComponent
+    HomeComponent,
+    EventsComponent
   ],
   imports: [
     BrowserModule,
@@ -58,4 +60,4 @@ import { AuthResponseInterceptor } from "./auth/interceptors/auth-response.inter
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
