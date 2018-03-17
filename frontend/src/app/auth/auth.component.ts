@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {NgForm} from '@angular/forms';
-import {AuthService} from './services/auth.service';
+import {Component, OnInit} from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { AuthService } from './services/auth.service';
 
 
 @Component({
@@ -9,25 +9,26 @@ import {AuthService} from './services/auth.service';
   styleUrls: ['./auth.component.css']
 })
 export class AuthComponent implements OnInit {
+  authenticated: boolean;
 
-  constructor(private auth: AuthService) { }
+  constructor(private authService: AuthService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.authService.authSubject.subscribe(
+      next => {
+        this.authenticated = next;
+      }
+    );
+    this.authenticated = this.authService.isAuthenticated();
+  }
 
-  onSubmit(form: NgForm) {
+  onLogin(form: NgForm) {
     const username = form.value.username;
     const password = form.value.password;
-    this.auth.login(username, password)
-      .subscribe(
-      success => {
-        console.log('[AuthComponent] Success logging in.');
-      },
-      error => {
-        console.log('[AuthComponent] Error logging in.');
-      },
-        () => {
-        console.log("Auth component completed");
-        }
-    );
+    this.authService.login(username, password);
+  }
+
+  onLogout() {
+    this.authService.logout();
   }
 }

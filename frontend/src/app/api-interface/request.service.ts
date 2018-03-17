@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/Rx';
+import {BaseResultSetInterface} from "./base-result-set.interface";
 
 @Injectable()
 export class RequestService {
   csrfToken = '';
 
-  constructor(private httpClient: HttpClient) {
-  }
+  constructor(private httpClient: HttpClient) {}
 
   getCSRFToken() {
     const cookies = document.cookie.split(';');
@@ -19,13 +19,11 @@ export class RequestService {
         break;
       }
     }
-    console.log('[RequestService] Got CSRF token: ' + this.csrfToken);
-
     return this.csrfToken;
   }
 
   get(url: string) {
-    return this.httpClient.get(url);
+    return this.httpClient.get<BaseResultSetInterface>(url);
   }
 
   post(url: string, body: {}) {

@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from '../api-interface/request.service';
-import { catchError, map, tap } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
-import { pipe } from 'rxjs/Rx';
+
 
 @Component({
   selector: 'app-home',
@@ -10,11 +8,19 @@ import { pipe } from 'rxjs/Rx';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  info: any;
+  info: any[];
 
-  constructor(private request: RequestService) { }
+  constructor(private requestService: RequestService) {}
 
   ngOnInit() {
-    this.request.get('http://localhost:8000/api/csrf/').subscribe();
+    this.requestService.get('http://localhost:8000/api/info/')
+      .subscribe(
+        next => {
+          this.info = next.results;
+        },
+        error => {
+          console.log("Failed getting info from API");
+        }
+      );
   }
 }

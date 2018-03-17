@@ -13,5 +13,6 @@ router.register(r'info', api_views.InfoViewSet)
 
 urlpatterns = [
     url(r'csrf', api_views.get_csrf_token),
-    url(r'login', api_views.login_user)
+    url(r'login', api_views.login_user),
+    url(r'logout', api_views.logout_user),
 ] + router.urls

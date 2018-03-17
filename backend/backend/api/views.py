@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User, Group
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 
@@ -48,6 +48,10 @@ def get_csrf_token(request):
 
 
 def login_user(request):
+    if request.user.is_authenticated:
+        print("User was already authenticated!")
+        return HttpResponse(status=status.HTTP_200_OK)
+
     request_body = request.body.decode('utf-8')
     dict_request_body = loads(request_body)
     username = dict_request_body['username']
@@ -55,10 +59,15 @@ def login_user(request):
 
     user = authenticate(username=username, password=password)
 
-    if not None:
+    if user is not None:
         login(request, user)
         return HttpResponse(status=status.HTTP_200_OK)
     else:
         response = HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
         response['WWW-Authenticate'] = 'Invalid username or password'
         return response
+
+
+def logout_user(request):
+    logout(request)
+    return HttpResponse(status=status.HTTP_200_OK)

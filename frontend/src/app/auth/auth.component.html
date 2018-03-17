@@ -1,6 +1,6 @@
 <div>
   <h2>Login</h2>
-  <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+  <form (ngSubmit)="onLogin(f)" #f="ngForm" *ngIf="!authenticated">
     <div>
       <label for="username">Username</label>
       <input
@@ -19,4 +19,5 @@
     </div>
     <button type="submit">Log in</button>
   </form>
+  <button (click)="onLogout()" *ngIf="authenticated">Log out</button>
 </div>

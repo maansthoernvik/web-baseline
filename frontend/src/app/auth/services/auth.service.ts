@@ -1,39 +1,40 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { RequestService } from '../../api-interface/request.service';
-import { Observable } from "rxjs/Observable";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
 
-const LOGIN_URL = window.location.protocol + '//' + window.location.hostname + ':8000/api/login/';
+
+const BASE_URL = window.location.protocol + '//' + window.location.hostname + ':8000/api/';
+const LOGIN_URL = BASE_URL + 'login/';
+const LOGOUT_URL = BASE_URL + 'logout/';
+
 
 @Injectable()
 export class AuthService {
-  private authenticated: boolean;
+  authSubject: BehaviorSubject<boolean>;
 
-  constructor(private http: HttpClient,
-              private requestService: RequestService) {}
+  constructor(private requestService: RequestService) {
+    this.authSubject = new BehaviorSubject<boolean>(false);
+  }
 
   login(username: string, password: string) {
-    return new Observable<boolean>(subscriber => {
-      this.requestService.post(LOGIN_URL, {username: username, password: password})
-        .subscribe(
-          success => {
-            this.authenticated = true;
-            console.log("Auth service success");
-            subscriber.next();
-          },
-          error => {
-            console.log("Auth service error");
-            subscriber.error();
-          },
-          () => {
-            console.log("Auth service completed");
-            subscriber.complete();
-          }
-        );
-    });
+    this.requestService.post(LOGIN_URL, { username: username, password: password })
+      .subscribe(
+        next => {
+          this.authSubject.next(true);
+          console.log("[AuthService] Success logging in.");
+        });
+  }
+
+  logout() {
+    this.requestService.post(LOGOUT_URL, {})
+    .subscribe(
+      next => {
+        this.authSubject.next(false);
+        console.log('[AuthService] Success logging out.');
+      });
   }
 
   isAuthenticated(): boolean {
-    return this.authenticated;
+    return this.authSubject.getValue();
   }
 }

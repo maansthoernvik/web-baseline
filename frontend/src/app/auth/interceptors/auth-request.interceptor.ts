@@ -15,7 +15,7 @@ export class AuthRequestInterceptor implements HttpInterceptor {
       // not be set.
       withCredentials: true});
 
-    console.log("[RequestInterceptor] Outgoing request", clonedReq);
+
     return next.handle(clonedReq);
   }
 }
