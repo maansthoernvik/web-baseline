@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import 'rxjs/Rx';
-import {BaseResultSetInterface} from "./base-result-set.interface";
+import { HttpClient } from '@angular/common/http';
+import { BaseResultSetInterface } from './base-result-set.interface';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class RequestService {
@@ -22,12 +22,18 @@ export class RequestService {
     return this.csrfToken;
   }
 
-  get(url: string) {
+  /**
+   * HTTP REQUESTS
+   *
+   * Note that all observables returned by HTTP request functions need to be subscribed to in order to fire the request.
+   */
+
+  get(url: string): Observable<BaseResultSetInterface> {
     return this.httpClient.get<BaseResultSetInterface>(url);
   }
 
   post(url: string, body: {}) {
-    // Add { observe: 'response' } to get mode than just the response body back.
+    // Add { observe: 'response' } to get more than just the response body back.
     return this.httpClient.post(url, body);
   }
 

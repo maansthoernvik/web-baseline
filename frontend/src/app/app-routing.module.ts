@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthComponent } from './auth/auth.component';
 import { HomeComponent } from './home/home.component';
 import { EventsComponent } from './events/events.component';
+import { AuthGuardService } from './auth/guards/auth-guard.service';
 
 /*
 To add child routes of a parent path:
@@ -23,9 +24,9 @@ NOTE! canDeactivate can be used to prevent navigation before saving changes.
 
 const appRoutes: Routes = [
   // Need to match full path of an empty path since it will match everything otherwise.
-  { path: '', component: HomeComponent, pathMatch: 'full' },
+  { path: '', component: HomeComponent, pathMatch: 'full', canActivate: [AuthGuardService] },
   { path: 'auth', component: AuthComponent },
-  { path: 'events', component: EventsComponent },
+  { path: 'events', component: EventsComponent, canActivate: [AuthGuardService] },
 ];
 
 @NgModule({

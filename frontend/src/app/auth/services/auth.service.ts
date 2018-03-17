@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
+
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
 import { RequestService } from '../../api-interface/request.service';
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
 
 
 const BASE_URL = window.location.protocol + '//' + window.location.hostname + ':8000/api/';
@@ -10,6 +12,8 @@ const LOGOUT_URL = BASE_URL + 'logout/';
 
 @Injectable()
 export class AuthService {
+  // The subject contains the current authentication state of the user. BehaviorSubjects when subscribed to will emit
+  // its latest value.
   authSubject: BehaviorSubject<boolean>;
 
   constructor(private requestService: RequestService) {

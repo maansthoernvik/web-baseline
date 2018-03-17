@@ -6,6 +6,10 @@ from asgiref.sync import async_to_sync
 class EventConsumer(JsonWebsocketConsumer):
 
     def connect(self):
+        """
+        Accepts the connection and adds the consumer to none, one or more groups.
+        :return:
+        """
         async_to_sync(self.channel_layer.group_add)(
             'events',
             self.channel_name
@@ -26,7 +30,7 @@ class EventConsumer(JsonWebsocketConsumer):
 
     # ------------------------------------------------------------------------------------------------------------------
     # Handler definitions! handlers will accept their corresponding message types. A message with type event.alarm
-    # has to have a function event_alarm
+    # has to have a function event_alarm. A message with type alarm will have to have a corresponding function alarm.
     # ------------------------------------------------------------------------------------------------------------------
 
     def alarm(self, event):

@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import {Subject} from "rxjs/Subject";
-import {Observer} from "rxjs/Observer";
-import {Observable} from "rxjs/Observable";
+
+import { Subject } from 'rxjs/Subject';
+import { Observer } from 'rxjs/Observer';
+import { Observable } from 'rxjs/Observable';
+
 
 @Injectable()
 export class EventListenerService {
