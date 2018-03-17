@@ -6,6 +6,9 @@ out-tsc/
 # Built angular app
 dist/
 
+# Redis dump
+*.rdb
+
 # Collected staticfiles
 backend/static/admin
 backend/static/rest_framework
