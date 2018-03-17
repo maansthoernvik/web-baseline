@@ -61,8 +61,6 @@ TEMPLATES = [
     },
 ]
 
-ASGI_APPLICATION = 'backend.routing.application'
-
 WSGI_APPLICATION = 'backend.wsgi.application'
 
 
@@ -161,6 +159,8 @@ CORS_ALLOW_CREDENTIALS = True
 # Channels + Redis configurations
 # NOTE! There is no need to specify the ROUTER field after channels 2. This is baked into the ASGI_APPLICATION field
 # above, since that already selects the application (router) anyway.
+ASGI_APPLICATION = 'backend.routing.application'
+
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',

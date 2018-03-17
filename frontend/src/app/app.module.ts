@@ -14,6 +14,8 @@ import { HomeComponent } from './home/home.component';
 // My services
 import { AuthService } from './auth/services/auth.service';
 import { RequestService } from './api-interface/request.service';
+import { EventHandlerService } from "./events/services/event-handler.service";
+import { EventListenerService } from "./events/services/event-listener.service";
 
 // My guards
 import { AuthGuardService } from './auth/guards/auth-guard.service';
@@ -41,6 +43,8 @@ import { AuthResponseInterceptor } from "./auth/interceptors/auth-response.inter
     AuthService,
     AuthGuardService,
     RequestService,
+    EventListenerService,
+    EventHandlerService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthRequestInterceptor,

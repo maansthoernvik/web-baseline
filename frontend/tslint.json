@@ -76,7 +76,6 @@
       "check-catch",
       "check-else"
     ],
-    "prefer-const": true,
     "radix": true,
     "semicolon": [
       true,
