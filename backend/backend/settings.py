@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
+    'channels',
     'backend.api',
     'backend.webapp'
 ]
@@ -59,6 +60,8 @@ TEMPLATES = [
         },
     },
 ]
+
+ASGI_APPLICATION = 'backend.routing.application'
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
@@ -154,3 +157,15 @@ CORS_ALLOW_CREDENTIALS = True
 
 # In case of emergency
 # CORS_ORIGIN_ALLOW_ALL = True
+
+# Channels + Redis configurations
+# NOTE! There is no need to specify the ROUTER field after channels 2. This is baked into the ASGI_APPLICATION field
+# above, since that already selects the application (router) anyway.
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [('localhost', 6379)],
+        },
+    }
+}
