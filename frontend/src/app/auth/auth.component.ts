@@ -23,7 +23,6 @@ export class AuthComponent implements OnInit, OnDestroy {
         this.authenticated = next;
       }
     );
-    this.authenticated = this.authService.isAuthenticated();
   }
 
   ngOnDestroy() {

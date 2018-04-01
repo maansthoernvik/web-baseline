@@ -18,6 +18,7 @@ export class AuthService {
 
   constructor(private requestService: RequestService) {
     this.authSubject = new BehaviorSubject<boolean>(false);
+    this.login('', '');  // Trigger login on app start.
   }
 
   login(username: string, password: string) {
@@ -38,7 +39,19 @@ export class AuthService {
       });
   }
 
-  isAuthenticated(): boolean {
-    return this.authSubject.getValue();
+  isAuthenticated(): Promise<boolean> {
+    return new Promise<boolean>(
+      (resolve, reject) => {
+        this.requestService.post(LOGIN_URL, { username: '', password: '' })
+          .subscribe(
+            next => {
+              resolve(true);
+            },
+            error => {
+              resolve(false);
+            }
+          );
+      }
+    );
   }
 }

@@ -1,9 +1,8 @@
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
-
 import { AuthService } from '../services/auth.service';
+import { Observable } from 'rxjs/Observable';
 
 /*
 NOTE! Important to add the service to providers field in app module!
@@ -11,7 +10,6 @@ NOTE! This guard should be stated on the top level route of the section you want
       by filling in the field 'canActivate: [<Guard>, <Guard>...]'
  */
 
-// Injectable to be able to inject an authentication service into here.
 @Injectable()
 export class AuthGuardService implements CanActivate, CanActivateChild {
   // Inject the authentication service to use with canActivate
@@ -20,16 +18,29 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable<boolean> | Promise<boolean> | boolean {
-    if (this.authService.isAuthenticated()) {
-      return true;
-    } else {
-      this.router.navigate(['/auth']);
-    }
-    return false;
+    return this.authService.isAuthenticated()
+      .then(
+        (authenticated: boolean) => {
+          if (authenticated) {
+            return true;
+          } else {
+            this.router.navigate(['/auth']);
+          }
+        }
+      );
   }
 
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable<boolean> | Promise<boolean> | boolean {
-    return this.authService.isAuthenticated();
+    return this.authService.isAuthenticated()
+      .then(
+          (authenticated: boolean) => {
+            if (authenticated) {
+              return true;
+            } else {
+              this.router.navigate(['/auth']);
+            }
+          }
+        );
   }
 }
